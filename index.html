@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password validation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="updatePasswordForm" class="bg-[#FBA2B7] p-12 m-8">
+
+        <h1 class="text-[30px] font-bold mb-4 text-white
+        ">Update Password</h1>
+
+        <label for="Newpassword" class="text-white font-semibold ">NEW PASSWORD</label><br>
+
+        <input type="password" id="NewPassword" placeholder="Enter your password " class="rounded p-1"><br>
+
+        <p id="newPasswordErrMsg" class="error"></p>
+
+        <label for="ConfirmPassword" class="text-white font-semibold ">CONFIRM PASSWORD </label><br>
+
+        <input type="password" id="ConfirmPassword" placeholder="Confirm Password" class="rounded p-1"><br>
+
+        <p id="confirmPasswordErrMsg" class="error"></p>
+
+        <button id="updateBtn" class="bg-blue-800 p-[5px] mt-2 mx-10 text-white rounded-sm">Update</button>
+
+    </form>
+</body>
+
+
+<script>
+    const updatePasswordForm = document.getElementById('updatePasswordForm');
+    const newPassword = document.getElementById('NewPassword');
+    const confirmPassword = document.getElementById('ConfirmPassword');
+    const updateBtn = document.getElementById('updateBtn');
+    const newPasswordErrMsg = document.getElementById('newPasswordErrMsg');
+    const confirmPasswordErrMsg = document.getElementById('confirmPasswordErrMsg');
+
+    // Function to validate new password input
+
+    function validateNewPassword() {
+        if (newPassword.value === "") {
+            newPasswordErrMsg.textContent = "*Required";
+        }
+        else {
+            newPasswordErrMsg.textContent = "";
+        }
+    }
+
+    // Function to validate confirm password input
+
+    function validateConfirmPassword() {
+
+        if (confirmPassword.value !== newPassword.value) {
+            confirmPasswordErrMsg.textContent = "Passwords Must Be Same*"
+        }
+        else {
+            confirmPasswordErrMsg.textContent = '';
+        }
+    }
+
+
+    // Event listeners for validation on blur
+    newPassword.addEventListener('blur', validateNewPassword);
+    confirmPassword.addEventListener('blur', validateConfirmPassword);
+
+
+    // Event listener for form submission
+    updatePasswordForm.addEventListener('submit', (e) => {
+        console.log("Submit Clicked")
+        e.preventDefault(); //1.prevent from page Reloading in the Form
+        console.log("Data:", "NewPassword :", newPassword.value, "ConfirmPassword : ", confirmPassword.value)// To get Data from the Forms
+
+        validateNewPassword()
+        validateConfirmPassword()
+    })
+
+</script>
+
+</html>
