@@ -11,6 +11,15 @@
             color: red;
         }
     </style>
+
+    <!--FireBase SDK-->
+
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+
 </head>
 
 <body>
@@ -80,9 +89,46 @@
         e.preventDefault(); //1.prevent from page Reloading in the Form
         console.log("Data:", "NewPassword :", newPassword.value, "ConfirmPassword : ", confirmPassword.value)// To get Data from the Forms
 
-        validateNewPassword()
-        validateConfirmPassword()
+        validateNewPassword();
+        validateConfirmPassword();
+
+        const res = SaveData(newPassword, confirmPassword);
+
+        if (res) {
+            SaveData(newPassword, confirmPassword);
+            console.log("Password Updated Successfully")
+        }
     })
+
+
+
+    // Firebase configuration
+
+    function SaveData(newPassword, confirmPassword) {
+        const firebaseConfig = {
+            apiKey: "AIzaSyARRBC0ZtOPIV5m1OzqUSmjttzNp27jycw",
+            authDomain: "validation45.firebaseapp.com",
+            databaseURL: "https://validation45-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "validation45",
+            storageBucket: "validation45.appspot.com",
+            messagingSenderId: "13259898814",
+            appId: "1:13259898814:web:516112a4e6af51b43e43ef"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the database
+        const db = firebase.database().ref("ReqForm");
+        console.log(db)
+
+        // Push data to database
+        db.push({
+            newPassword: newPassword.value,
+            confirmPassword: confirmPassword.value
+        })
+
+    }
 
 </script>
 
